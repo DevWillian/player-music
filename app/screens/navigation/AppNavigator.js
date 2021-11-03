@@ -11,27 +11,27 @@ const Tab = createBottomTabNavigator()
 
 const AppNavigator = () => {
   return <Tab.Navigator>
-      <Tab.Screen name='AudioList' component={AudioList} 
+    <Tab.Screen name='AudioList' component={AudioList}
       options={{
-          tabBarIcon: ({color, size}) => (
+        tabBarIcon: ({ color, size }) => (
           <Ionicons name="headset" size={size} color={color} />
-          ),   
-        }} 
-      />
-      <Tab.Screen name='Player' component={Player} 
+        ),
+      }}
+    />
+    <Tab.Screen name='Player' component={Player}
       options={{
-          tabBarIcon: ({color, size}) => (
-            <SimpleLineIcons name="disc" size={size} color={color} />
-          ),   
-        }} 
-      />
-      <Tab.Screen name='PlayList' component={PlayList} 
+        tabBarIcon: ({ color, size }) => (
+          <SimpleLineIcons name="disc" size={size} color={color} />
+        ),
+      }}
+    />
+    <Tab.Screen name='PlayList' component={PlayList}
       options={{
-          tabBarIcon: ({color, size}) => (
-            <MaterialCommunityIcons name="playlist-music" size={size} color={color} />
-          ),   
-        }} 
-       />
+        tabBarIcon: ({ color, size }) => (
+          <MaterialCommunityIcons name="playlist-music" size={size} color={color} />
+        ),
+      }}
+    />
   </Tab.Navigator>
 }
 
