@@ -1,12 +1,22 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, ScrollView, Dimensions } from 'react-native';
 import { AudioContext } from '../context/AudioProvider';
-import { RecyclerListView, layoutProvider, LayoutProvider } from 'recyclerlistview';
+import { RecyclerListView, LayoutProvider } from 'recyclerlistview';
 import AudioListItem from '../components/AudioListItem';
 import Screen from '../components/Screen';
+import OptionModal from '../components/OptionModal';
 
 export class AudioList extends Component {
     static contextType = AudioContext;
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            optionModalVisible: false,
+        };
+
+        this.currentItem = {}
+    }
 
     layoutProvider = new LayoutProvider(
         i => 'audio',
@@ -24,11 +34,16 @@ export class AudioList extends Component {
     );
 
     rowRenderer = (type, item) => {
-        return <AudioListItem
-            title={item.filename}
-            duration={item.duration}
-            onOptionPress={ }
-        />
+        return (
+            <AudioListItem
+                title={item.filename}
+                duration={item.duration}
+                onOptionPress={() => {
+                    this.currentItem = item;
+                    this.setState({ ...this.state, optionModalVisible: true });
+                }}
+            />
+        );
     };
 
     render() {
@@ -41,6 +56,15 @@ export class AudioList extends Component {
                                 dataProvider={dataProvider}
                                 layoutProvider={this.layoutProvider}
                                 rowRenderer={this.rowRenderer}
+                            />
+                            <OptionModal
+                                onPlayPress={() => console.log('tocando')}
+                                onPlayListPress={() => console.log('adicionado')}
+                                currentItem={this.currentItem}
+                                onClose={() =>
+                                    this.setState({ ...this.state, optionModalVisible: false })
+                                }
+                                visible={this.state.optionModalVisible}
                             />
                         </Screen>
                     );
